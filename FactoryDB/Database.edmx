@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -22,8 +22,8 @@
           <Property Name="Номер" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Дата" Type="date" Nullable="false" />
           <Property Name="Этап выполнения" Type="nchar" MaxLength="15" Nullable="false" />
-          <Property Name="Заказчик" Type="nchar" MaxLength="40" Nullable="false" />
-          <Property Name="Менеджер" Type="nchar" MaxLength="40" />
+          <Property Name="Заказчик" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Менеджер" Type="nvarchar" MaxLength="50" />
           <Property Name="Стоимость" Type="money" />
         </EntityType>
         <EntityType Name="Заказные изделия">
@@ -50,10 +50,11 @@
           <Key>
             <PropertyRef Name="Логин" />
           </Key>
-          <Property Name="Логин" Type="nchar" MaxLength="40" Nullable="false" />
-          <Property Name="Пароль" Type="nchar" MaxLength="40" Nullable="false" />
-          <Property Name="Роль" Type="nchar" MaxLength="15" Nullable="false" />
-          <Property Name="Наименование" Type="nchar" MaxLength="40" />
+          <Property Name="Логин" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Почта" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Пароль" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Роль" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Наименование" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Склад ткани">
           <Key>
@@ -326,8 +327,7 @@
             <End Role="Фурнитура изделия" EntitySet="Фурнитура изделия" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -348,12 +348,12 @@
           <Property Name="Номер" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Дата" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Этап_выполнения" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Заказчик" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Менеджер" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="Заказчик" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Менеджер" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Стоимость" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Пользователь" Relationship="Self.FK_Заказ_Пользователь" FromRole="Заказ" ToRole="Пользователь" />
-          <NavigationProperty Name="Пользователь1" Relationship="Self.FK_Заказ_Пользователь1" FromRole="Заказ" ToRole="Пользователь" />
           <NavigationProperty Name="Заказные_изделия" Relationship="Self.FK_Заказные_изделия_Заказ" FromRole="Заказ" ToRole="Заказные_изделия" />
+          <NavigationProperty Name="Пользователь" Relationship="Model.FK_Заказ_Пользователь" FromRole="Заказ" ToRole="Пользователь" />
+          <NavigationProperty Name="Пользователь1" Relationship="Model.FK_Заказ_Пользователь1" FromRole="Заказ" ToRole="Пользователь" />
         </EntityType>
         <EntityType Name="Заказные_изделия">
           <Key>
@@ -379,17 +379,6 @@
           <NavigationProperty Name="Заказные_изделия" Relationship="Self.FK_Заказные_изделия_Изделие" FromRole="Изделие" ToRole="Заказные_изделия" />
           <NavigationProperty Name="Фурнитура_изделия" Relationship="Self.FK_Фурнитура_изделия_Изделие" FromRole="Изделие" ToRole="Фурнитура_изделия" />
           <NavigationProperty Name="Ткань" Relationship="Self.Ткани_изделия" FromRole="Изделие" ToRole="Ткань" />
-        </EntityType>
-        <EntityType Name="Пользователь">
-          <Key>
-            <PropertyRef Name="Логин" />
-          </Key>
-          <Property Name="Логин" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Пароль" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Роль" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Наименование" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_Пользователь" FromRole="Пользователь" ToRole="Заказ" />
-          <NavigationProperty Name="Заказ1" Relationship="Self.FK_Заказ_Пользователь1" FromRole="Пользователь" ToRole="Заказ" />
         </EntityType>
         <EntityType Name="Склад_ткани">
           <Key>
@@ -458,30 +447,6 @@
           <NavigationProperty Name="Изделие" Relationship="Self.FK_Фурнитура_изделия_Изделие" FromRole="Фурнитура_изделия" ToRole="Изделие" />
           <NavigationProperty Name="Фурнитура" Relationship="Self.FK_Фурнитура_изделия_Фурнитура" FromRole="Фурнитура_изделия" ToRole="Фурнитура" />
         </EntityType>
-        <Association Name="FK_Заказ_Пользователь">
-          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="1" />
-          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Пользователь">
-              <PropertyRef Name="Логин" />
-            </Principal>
-            <Dependent Role="Заказ">
-              <PropertyRef Name="Заказчик" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Заказ_Пользователь1">
-          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="0..1" />
-          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Пользователь">
-              <PropertyRef Name="Логин" />
-            </Principal>
-            <Dependent Role="Заказ">
-              <PropertyRef Name="Менеджер" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Заказные_изделия_Заказ">
           <End Role="Заказ" Type="Self.Заказ" Multiplicity="1" />
           <End Role="Заказные_изделия" Type="Self.Заказные_изделия" Multiplicity="*" />
@@ -558,25 +523,16 @@
           <End Role="Изделие" Type="Self.Изделие" Multiplicity="*" />
           <End Role="Ткань" Type="Self.Ткань" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Швейная_фабрикаEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Швейная_фабрикаEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Заказ" EntityType="Self.Заказ" />
           <EntitySet Name="Заказные_изделия" EntityType="Self.Заказные_изделия" />
           <EntitySet Name="Изделие" EntityType="Self.Изделие" />
-          <EntitySet Name="Пользователь" EntityType="Self.Пользователь" />
           <EntitySet Name="Склад_ткани" EntityType="Self.Склад_ткани" />
           <EntitySet Name="Склад_фурнитуры" EntityType="Self.Склад_фурнитуры" />
           <EntitySet Name="Ткань" EntityType="Self.Ткань" />
           <EntitySet Name="Фурнитура" EntityType="Self.Фурнитура" />
           <EntitySet Name="Фурнитура_изделия" EntityType="Self.Фурнитура_изделия" />
-          <AssociationSet Name="FK_Заказ_Пользователь" Association="Self.FK_Заказ_Пользователь">
-            <End Role="Пользователь" EntitySet="Пользователь" />
-            <End Role="Заказ" EntitySet="Заказ" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Заказ_Пользователь1" Association="Self.FK_Заказ_Пользователь1">
-            <End Role="Пользователь" EntitySet="Пользователь" />
-            <End Role="Заказ" EntitySet="Заказ" />
-          </AssociationSet>
           <AssociationSet Name="FK_Заказные_изделия_Заказ" Association="Self.FK_Заказные_изделия_Заказ">
             <End Role="Заказ" EntitySet="Заказ" />
             <End Role="Заказные_изделия" EntitySet="Заказные_изделия" />
@@ -635,6 +591,15 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Пользователь" EntityType="Model.Пользователь" />
+          <AssociationSet Name="FK_Заказ_Пользователь" Association="Model.FK_Заказ_Пользователь">
+            <End Role="Пользователь" EntitySet="Пользователь" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Заказ_Пользователь1" Association="Model.FK_Заказ_Пользователь1">
+            <End Role="Пользователь" EntitySet="Пользователь" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -647,12 +612,48 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Пользователь">
+          <Key>
+            <PropertyRef Name="Логин" />
+          </Key>
+          <Property Name="Логин" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Почта" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Пароль" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Роль" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Наименование" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Заказ" Relationship="Model.FK_Заказ_Пользователь" FromRole="Пользователь" ToRole="Заказ" />
+          <NavigationProperty Name="Заказ1" Relationship="Model.FK_Заказ_Пользователь1" FromRole="Пользователь" ToRole="Заказ" />
+        </EntityType>
+        <Association Name="FK_Заказ_Пользователь">
+          <End Type="Model.Пользователь" Role="Пользователь" Multiplicity="1" />
+          <End Type="Model.Заказ" Role="Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователь">
+              <PropertyRef Name="Логин" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Заказчик" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Заказ_Пользователь1">
+          <End Type="Model.Пользователь" Role="Пользователь" Multiplicity="0..1" />
+          <End Type="Model.Заказ" Role="Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователь">
+              <PropertyRef Name="Логин" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Менеджер" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Швейная_фабрикаEntities1">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Швейная_фабрикаEntities2">
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="Model.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -694,16 +695,6 @@
                 <ScalarProperty Name="Длина" ColumnName="Длина" />
                 <ScalarProperty Name="Изображение" ColumnName="Изображение" />
                 <ScalarProperty Name="Комментарий" ColumnName="Комментарий" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Пользователь">
-            <EntityTypeMapping TypeName="Model.Пользователь">
-              <MappingFragment StoreEntitySet="Пользователь">
-                <ScalarProperty Name="Логин" ColumnName="Логин" />
-                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
-                <ScalarProperty Name="Роль" ColumnName="Роль" />
-                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -800,6 +791,17 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище Model.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище Model.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Пользователь">
+            <EntityTypeMapping TypeName="Model.Пользователь">
+              <MappingFragment StoreEntitySet="Пользователь">
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+                <ScalarProperty Name="Роль" ColumnName="Роль" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+                <ScalarProperty Name="Почта" ColumnName="Почта" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

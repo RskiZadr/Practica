@@ -22,6 +22,7 @@ namespace FactoryDB
         }
     
         public string Логин { get; set; }
+        public string Почта { get; set; }
         public string Пароль { get; set; }
         public string Роль { get; set; }
         public string Наименование { get; set; }

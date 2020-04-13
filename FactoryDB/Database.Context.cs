@@ -15,10 +15,10 @@ namespace FactoryDB
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Швейная_фабрикаEntities1 : DbContext
+    public partial class Швейная_фабрикаEntities2 : DbContext
     {
-        public Швейная_фабрикаEntities1()
-            : base("name=Швейная_фабрикаEntities1")
+        public Швейная_фабрикаEntities2()
+            : base("name=Швейная_фабрикаEntities2")
         {
         }
     
@@ -31,12 +31,12 @@ namespace FactoryDB
         public virtual DbSet<Заказ> Заказ { get; set; }
         public virtual DbSet<Заказные_изделия> Заказные_изделия { get; set; }
         public virtual DbSet<Изделие> Изделие { get; set; }
-        public virtual DbSet<Пользователь> Пользователь { get; set; }
         public virtual DbSet<Склад_ткани> Склад_ткани { get; set; }
         public virtual DbSet<Склад_фурнитуры> Склад_фурнитуры { get; set; }
         public virtual DbSet<Ткань> Ткань { get; set; }
         public virtual DbSet<Фурнитура> Фурнитура { get; set; }
         public virtual DbSet<Фурнитура_изделия> Фурнитура_изделия { get; set; }
+        public virtual DbSet<Пользователь> Пользователь { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

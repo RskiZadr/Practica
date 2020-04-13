@@ -27,9 +27,9 @@ namespace FactoryDB
         public string Менеджер { get; set; }
         public Nullable<decimal> Стоимость { get; set; }
     
-        public virtual Пользователь Пользователь { get; set; }
-        public virtual Пользователь Пользователь1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Заказные_изделия> Заказные_изделия { get; set; }
+        public virtual Пользователь Пользователь { get; set; }
+        public virtual Пользователь Пользователь1 { get; set; }
     }
 }

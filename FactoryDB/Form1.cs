@@ -12,9 +12,56 @@ namespace FactoryDB
 {
     public partial class Form1 : Form
     {
+        Швейная_фабрикаEntities2 db = new Швейная_фабрикаEntities2();
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "" || textBox2.Text == "")
+            {
+                MessageBox.Show("Ввидете логин и пароль!");
+            }
+            else
+            {
+                Пользователь user = db.Пользователь.Find(textBox1.Text);
+                if (user != null && user.Пароль == textBox2.Text)
+                {
+                    switch (user.Роль)
+                    {
+                        case "Руководитель":
+                            MessageBox.Show($"Добро пожаловать {user.Наименование}!"); ;
+                            break;
+                        case "Менеджер":
+                            MessageBox.Show($"Добро пожаловать {user.Наименование}!");
+                            break;
+                        case "Кладовщик":
+                            MessageBox.Show($"Добро пожаловать {user.Наименование}!");
+                            break;
+                        case "Заказчик":
+                            MessageBox.Show($"Добро пожаловать {user.Наименование}!");
+                            break;
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введён неверный логи или пароль");
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
         }
     }
 }
